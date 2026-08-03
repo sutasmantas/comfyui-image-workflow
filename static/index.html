@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Printline — Render workstation</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="utility-bar">
+      <a class="wordmark" href="./" aria-label="Printline home">
+        <span class="wordmark-glyph">P/L</span>
+        <span>printline</span>
+      </a>
+      <div class="project-title">
+        <span>Project 01</span>
+        <strong>Campaign key visual</strong>
+      </div>
+      <div class="engine-state">
+        <i aria-hidden="true"></i>
+        <span>Engine</span>
+        <strong id="mode-label">Prepared render</strong>
+      </div>
+    </header>
+
+    <main class="studio">
+      <section class="artboard-panel" aria-labelledby="artboard-heading">
+        <header class="panel-bar">
+          <div>
+            <span class="index">01</span>
+            <h1 id="artboard-heading">Artboard</h1>
+          </div>
+          <div class="run-reference">
+            <span>Active run</span>
+            <code id="job-id">Not queued</code>
+          </div>
+        </header>
+
+        <div class="canvas-well">
+          <div class="preview" id="preview">
+            <div class="empty-frame" aria-hidden="true">
+              <span>01</span>
+              <i></i>
+            </div>
+            <p>No frame rendered</p>
+            <small>Configure the recipe and send it to the render line.</small>
+          </div>
+        </div>
+
+        <div class="transport" aria-live="polite">
+          <div class="transport-summary">
+            <span id="status" class="status-label">Idle</span>
+            <span id="stage">Waiting for a recipe</span>
+            <strong id="progress">0%</strong>
+          </div>
+          <div class="pipeline-track" aria-hidden="true">
+            <i id="pipeline-fill"></i>
+          </div>
+          <ol class="pipeline">
+            <li class="stage" data-threshold="0"><b>01</b><span>Queue</span></li>
+            <li class="stage" data-threshold="5"><b>02</b><span>Prepare</span></li>
+            <li class="stage" data-threshold="40"><b>03</b><span>Generate</span></li>
+            <li class="stage" data-threshold="80"><b>04</b><span>Persist</span></li>
+            <li class="stage" data-threshold="100"><b>05</b><span>Ready</span></li>
+          </ol>
+        </div>
+
+        <div id="error-panel" class="error-panel" hidden>
+          <div>
+            <span>Provider stop</span>
+            <strong>Frame was not produced</strong>
+            <p id="error-message"></p>
+            <small id="error-handoff"></small>
+          </div>
+          <button id="retry-button" type="button">Retry recipe</button>
+        </div>
+      </section>
+
+      <aside class="recipe-deck" aria-labelledby="recipe-heading">
+        <header class="deck-heading">
+          <div>
+            <span>Control deck</span>
+            <h2 id="recipe-heading">Recipe / 01</h2>
+          </div>
+          <span class="recipe-state">Draft</span>
+        </header>
+
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+
+        <form id="recipe-form" novalidate>
+          <label class="prompt-field">
+            <span>Direction</span>
+            <textarea id="prompt" maxlength="600" required>Editorial still life of a translucent cobalt radio on a red steel table, hard noon shadow, screen-print texture</textarea>
+          </label>
+
+          <label>
+            <span>Exclude</span>
+            <input id="negative" maxlength="300" value="watermark, distorted type, low contrast">
+          </label>
+
+          <div class="field-pair">
+            <label>
+              <span>Canvas</span>
+              <select id="size">
+                <option value="1024x1024">1024 × 1024</option>
+                <option value="1024x768">1024 × 768</option>
+                <option value="768x1024">768 × 1024</option>
+                <option value="512x512">512 × 512</option>
+              </select>
+            </label>
+            <label>
+              <span>Seed</span>
+              <input id="seed" type="number" min="0" max="9223372036854775807" value="240817">
+            </label>
+          </div>
+
+          <div class="field-pair compact-pair">
+            <label>
+              <span>Steps</span>
+              <input id="steps" type="number" min="1" max="50" value="20">
+            </label>
+            <label>
+              <span>CFG</span>
+              <input id="cfg" type="number" min="1" max="20" step="0.5" value="7">
+            </label>
+          </div>
+
+          <label>
+            <span>Adapter</span>
+            <select id="adapter">
+              <option value="mock">Prepared render / no key</option>
+              <option value="comfyui">Live ComfyUI</option>
+            </select>
+          </label>
+
+          <label class="failure-toggle">
+            <input id="simulate-failure" type="checkbox">
+            <span>Simulate provider failure</span>
+          </label>
+
+          <button class="render-button" type="submit">
+            <span>Render frame</span>
+            <b>R</b>
+          </button>
+        </form>
+
+        <dl class="metadata" id="metadata">
+          <div><dt>Seed</dt><dd>—</dd></div>
+          <div><dt>Graph digest</dt><dd>—</dd></div>
+          <div><dt>Artifact SHA</dt><dd>—</dd></div>
+          <div><dt>Renderer</dt><dd>—</dd></div>
+          <div><dt>Relationship</dt><dd>Original run</dd></div>
+        </dl>
+      </aside>
+
+      <section class="filmstrip" aria-labelledby="filmstrip-heading">
+        <header>
+          <div>
+            <span>Render queue</span>
+            <h2 id="filmstrip-heading">Frames</h2>
+          </div>
+          <span id="artifact-state">Awaiting artifact</span>
+        </header>
+        <div class="frames">
+          <article id="filmstrip-frame" class="frame-slot active">
+            <div class="frame-number">01</div>
+            <div class="frame-thumbnail"><span>Empty</span></div>
+            <div><strong>Current recipe</strong><small>Seed 240817</small></div>
+          </article>
+          <article class="frame-slot empty-slot" aria-label="Unused frame slot">
+            <span>02</span>
+          </article>
+          <article class="frame-slot empty-slot" aria-label="Unused frame slot">
+            <span>03</span>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <section class="workflow-proof" id="workflow-proof" aria-labelledby="workflow-heading">
+      <header>
+        <div><span>02 / WORKFLOW CONTRACT</span><h2 id="workflow-heading">One recipe. One traceable artifact.</h2></div>
+        <p>The no-key path and live ComfyUI adapter share the same graph, queue, status, artifact and retry contract.</p>
+      </header>
+      <div class="graph-line" aria-label="ComfyUI-compatible execution sequence">
+        <article><b>01</b><span>RECIPE</span><h3>Parameterize</h3><p>Prompt, seed, canvas, steps and CFG.</p></article>
+        <i>→</i>
+        <article><b>02</b><span>GRAPH</span><h3>Compile</h3><p>Seven-node ComfyUI API-format graph.</p></article>
+        <i>→</i>
+        <article><b>03</b><span>QUEUE</span><h3>Submit</h3><p>Serialized job with observable state.</p></article>
+        <i>→</i>
+        <article><b>04</b><span>RUN</span><h3>Observe</h3><p>Progress, provider stop and safe retry.</p></article>
+        <i>→</i>
+        <article><b>05</b><span>ARTIFACT</span><h3>Resolve</h3><p>Media URL, SHA-256 and run metadata.</p></article>
+      </div>
+      <div class="contract-split">
+        <article class="fixture-contract">
+          <span>PREPARED RENDER PATH</span>
+          <h3>Prepared render, complete orchestration.</h3>
+          <p>The bundled campaign image crosses the queue, status, storage, and provenance path so every workflow control remains available without a model download.</p>
+          <dl><div><dt>Renderer</dt><dd>prepared-render</dd></div><div><dt>Artifact</dt><dd>PNG + SHA-256</dd></div><div><dt>Cost</dt><dd>No API key / no GPU</dd></div></dl>
+        </article>
+        <article class="live-contract">
+          <span>LIVE COMFYUI PATH</span>
+          <h3>Swap the adapter, keep the contract.</h3>
+          <p>The live path submits the compiled graph to <code>/prompt</code>, follows <code>/ws</code>, resolves <code>/history</code> and retrieves the artifact through <code>/view</code>.</p>
+          <dl><div><dt>External</dt><dd>ComfyUI server</dd></div><div><dt>Model</dt><dd>Operator supplied</dd></div><div><dt>Mode</dt><dd>Adapter ready</dd></div></dl>
+        </article>
+      </div>
+    </section>
+
+    <footer class="status-bar">
+      <span>Reproducible prepared render</span>
+      <span>ComfyUI API-format graph</span>
+      <span>Queue · retry · provenance</span>
+    </footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

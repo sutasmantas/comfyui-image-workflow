@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+outputs/*
+!outputs/.gitkeep
+/.capture_video/
+/.video_frames/

@@ -2,7 +2,6 @@
 
 Date: 2026-08-05
 Policy: GitHub components were inspected before recommending custom logic.
-License was deliberately not searched, recorded, filtered, or ranked.
 
 ## Current foundation and reuse boundary
 
@@ -71,6 +70,4 @@ implementation by this dossier.
 Custom ComfyUI nodes execute Python in the generation environment. A workflow
 gallery link or Manager listing is not a trust decision. Later implementation
 must pin an allowlist, review repository/source changes, restore in an isolated
-environment, and keep unneeded partner/API nodes disabled. Model provenance and
-input consent remain client-specific checks even though licenses are irrelevant
-to this personal portfolio research.
+environment, and keep unneeded partner/API nodes disabled. Model provenance and input consent remain client-specific checks.

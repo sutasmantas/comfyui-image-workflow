@@ -1,5 +1,7 @@
 # Printline expertise notes
 
+**Verification:** [claim-to-artifact map and rerun commands](https://sutasmantas.github.io/evidence/#printline) · [machine-readable receipt](https://sutasmantas.github.io/evidence/receipt.json)
+
 Date: 2026-08-05
 Evidence state: systematic research only; P0–P5 are unexecuted
 

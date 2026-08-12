@@ -1,5 +1,7 @@
 # Printline
 
+**Verification:** [claim-to-artifact map and rerun commands](https://sutasmantas.github.io/evidence/#printline) · [machine-readable receipt](https://sutasmantas.github.io/evidence/receipt.json)
+
 Printline is a generative-media production workflow: configure a campaign key
 visual, queue it, follow its execution stages, and inspect the resulting media
 with reproducibility metadata. The complete orchestration path runs without an
